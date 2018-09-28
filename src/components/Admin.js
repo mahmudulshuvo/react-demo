@@ -327,9 +327,7 @@ class Admin extends Component {
                         aria-label="Toggle password visibility"
                         onClick={this.handleClear.bind(this)}
                       >
-                        {this.state.contentString.length > 0 ? (
-                          <DeleteIcon />
-                        ) : null}
+                        <DeleteIcon />
                       </IconButton>
                     </InputAdornment>
                   )
