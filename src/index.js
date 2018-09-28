@@ -7,11 +7,5 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import Admin from "./components/Admin";
 
-// ReactDOM.render(
-//   <BrowserRouter>
-//     <App />
-//   </BrowserRouter>,
-//   document.getElementById("App")
-// );
-ReactDOM.render(<Admin />, document.getElementById("App"));
+ReactDOM.render(<App />, document.getElementById("App"));
 registerServiceWorker();
