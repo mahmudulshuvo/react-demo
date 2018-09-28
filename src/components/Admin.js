@@ -13,6 +13,9 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import "./Style.css";
 import { Row, Col, Container } from "reactstrap";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const styles = theme => ({
   formControl: {
@@ -317,6 +320,20 @@ class Admin extends Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Toggle password visibility"
+                        onClick={this.handleClear.bind(this)}
+                      >
+                        {this.state.contentString.length > 0 ? (
+                          <DeleteIcon />
+                        ) : null}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
             </div>
           </Row>
