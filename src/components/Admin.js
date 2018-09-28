@@ -325,6 +325,13 @@ class Admin extends Component {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="Toggle password visibility"
+                        style={{
+                          position: "absolute",
+                          display: "flex",
+                          float: "left",
+                          top: 0,
+                          right: 40
+                        }}
                         onClick={this.handleClear.bind(this)}
                       >
                         <DeleteIcon />
