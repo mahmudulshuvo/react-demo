@@ -290,7 +290,7 @@ class Admin extends Component {
               )}
             </Col>
             <Col sm="12" md="2">
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
                 style={{ position: "absolute", bottom: 0, left: 10 }}
@@ -298,7 +298,7 @@ class Admin extends Component {
                 onClick={this.handleClear.bind(this)}
               >
                 Clear
-              </Button>
+              </Button> */}
             </Col>
           </Row>
           <Row>
