@@ -73,12 +73,6 @@
   font-family: "Open Sans", sans-serif;
 }
 
-.container-fluid {
-  display: block;
-  align-content: flex-start;
-  float: left;
-}
-
 .textarea {
   position: absolute;
   width: 95%;
@@ -90,4 +84,9 @@
   border: 1px solid rgb(0, 0, 0);
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.json-viewer {
+  text-align: left;
+  padding-left: 2%;
 }

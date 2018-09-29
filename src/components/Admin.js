@@ -225,7 +225,7 @@ class Admin extends Component {
           </Toolbar>
         </AppBar>
 
-        <div className="admin">
+        <div className="container-fluid">
           <Row>
             <Col sm="12" md="3">
               <form autoComplete="off">
@@ -361,10 +361,10 @@ class Admin extends Component {
             </div>
           </Row>
           <Row>
-            <div className="container-fluid m-3">
+            <div className="container-fluid">
               <Row>
                 <Col md="8" sm="10">
-                  <div className="container">
+                  <div className="container-fluid ml-4">
                     <TextField
                       id="jsonUrl"
                       label="Json Api"
@@ -410,7 +410,10 @@ class Admin extends Component {
           </Row>
           <Row>
             <div className="container-fluid m-3 p-3">
-              <Inspector data={this.state.data} />
+              <div className="json-viewer">
+                <Inspector data={this.state.data} />
+              </div>
+
               {/* {this.state.isFetched ? (
                 <ReactJson
                   src={this.state.data}
