@@ -73,8 +73,10 @@
   font-family: "Open Sans", sans-serif;
 }
 
-.container-fluid {
+.container-fluid { 
+  /* justify-content: flex-start;
   align-content: flex-start;
+  align-items: initial; */
 }
 
 .textarea {

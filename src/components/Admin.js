@@ -86,8 +86,10 @@ class Admin extends Component {
       showOne: false,
       showAll: false,
       apiData: "",
-      data: "",
-      jsonUrl: "https://jsonplaceholder.typicode.com/posts/"
+      data: {
+      },
+      jsonUrl: "https://jsonplaceholder.typicode.com/posts/",
+      isFetched: false
     };
   }
 
@@ -162,9 +164,11 @@ class Admin extends Component {
       .then(data => {
         // Work with JSON data here
         this.setState({
-          data: data
+          data: data,
+          isFetched: true
         });
         console.log("my json data ", this.state.data);
+        console.log("my json data ", this.state.data.length);
       })
       .catch(err => {
         // Do something for an error here
@@ -173,7 +177,8 @@ class Admin extends Component {
 
   clearJsonData(e) {
     this.setState({
-      data: []
+      data: {},
+      isFetched: false
     });
   }
 
@@ -406,13 +411,13 @@ class Admin extends Component {
           </Row>
           <Row>
             <div className="container-fluid m-3 p-3">
-              {this.state.data.length > 0 ? (
-                <ReactJson
+              {this.state.isFetched ?
+                (<ReactJson
                   src={this.state.data}
                   theme="solarized"
                   collapsed="false"
-                />
-              ) : null}
+                // style={{ position: "relative", width: "100%", float: "left", alignItems: "flex-start" }}
+                />) : null}
             </div>
           </Row>
         </div>
