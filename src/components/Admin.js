@@ -86,8 +86,7 @@ class Admin extends Component {
       showOne: false,
       showAll: false,
       apiData: "",
-      data: {
-      },
+      data: {},
       jsonUrl: "https://jsonplaceholder.typicode.com/posts/",
       isFetched: false
     };
@@ -411,13 +410,15 @@ class Admin extends Component {
           </Row>
           <Row>
             <div className="container-fluid m-3 p-3">
-              {this.state.isFetched ?
-                (<ReactJson
+              <Inspector data={this.state.data} />
+              {/* {this.state.isFetched ? (
+                <ReactJson
                   src={this.state.data}
                   theme="solarized"
                   collapsed="false"
-                // style={{ position: "relative", width: "100%", float: "left", alignItems: "flex-start" }}
-                />) : null}
+                  // style={{ position: "relative", width: "100%", float: "left", alignItems: "flex-start" }}
+                />
+              ) : null} */}
             </div>
           </Row>
         </div>
