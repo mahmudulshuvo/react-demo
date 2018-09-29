@@ -16,18 +16,19 @@ import { Row, Col, Container } from "reactstrap";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DeleteIcon from "@material-ui/icons/Delete";
+import "react-json-inspector/json-inspector.css";
+import ReactJson from "react-json-view";
 
 const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     marginTop: "50px",
-    marginLeft: "50px",
+    //marginLeft: "50px",
     minWidth: 200
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: "25%",
-    marginLeft: "25%"
+    marginTop: "25%"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -84,7 +85,9 @@ class Admin extends Component {
       hideAll: true,
       showOne: false,
       showAll: false,
-      apiData: ""
+      apiData: "",
+      data: "",
+      jsonUrl: "https://jsonplaceholder.typicode.com/posts/"
     };
   }
 
@@ -134,6 +137,14 @@ class Admin extends Component {
     console.log("value two ", this.state.valueTwo);
   };
 
+  handleChangeJsonUrl = jsonUrl => event => {
+    console.log("json url on change: ", event.target.value);
+    this.setState({
+      [jsonUrl]: event.target.value
+    });
+    console.log("json url ", this.state.jsonUrl);
+  };
+
   handleCalederValue = calender => event => {
     this.setState({
       [calender]: event.target.value
@@ -141,39 +152,51 @@ class Admin extends Component {
     console.log("Date value ", this.state.calender);
   };
 
-  handleSubmit(e) {
+  showJsonData(e) {
     // Replace ./data.json with your JSON feed
-    fetch("https://jsonplaceholder.typicode.com/posts/")
+    console.log("Json url to fetch ", this.state.jsonUrl);
+    fetch(this.state.jsonUrl)
       .then(response => {
         return response.json();
       })
       .then(data => {
         // Work with JSON data here
-        //for ()
-        let title = data.map(title => title.body);
-        let posts = "";
-        for (let i = 0; i < 100; i++) {
-          posts += title[i] + "\n";
-        }
-        //console.log(posts);
         this.setState({
-          apiData: posts
+          data: data
         });
+        console.log("my json data ", this.state.data);
       })
       .catch(err => {
         // Do something for an error here
       });
+  }
 
+  clearJsonData(e) {
     this.setState({
-      contentString:
-        this.state.valueOne +
-        "\n" +
-        this.state.valueTwo +
-        "\n" +
-        this.state.calender +
-        "\n" +
-        this.state.apiData
+      data: []
     });
+  }
+
+  handleSubmit(e) {
+    if (
+      this.state.valueOne == "" &&
+      this.state.valueTwo == "" &&
+      this.state.calender == ""
+    ) {
+      this.setState({
+        contentString: ""
+      });
+    } else {
+      this.setState({
+        contentString:
+          this.state.valueOne +
+          "\n" +
+          this.state.valueTwo +
+          "\n" +
+          this.state.calender
+      });
+    }
+
     console.log(
       this.state.valueOne + this.state.valueTwo + this.state.calender
     );
@@ -187,6 +210,7 @@ class Admin extends Component {
 
   render() {
     const { classes } = this.props;
+    var Inspector = require("react-json-inspector");
     return (
       <div>
         <AppBar className="app-bar" position="static" color="primary">
@@ -289,17 +313,7 @@ class Admin extends Component {
                 </form>
               )}
             </Col>
-            <Col sm="12" md="2">
-              {/* <Button
-                variant="contained"
-                color="primary"
-                style={{ position: "absolute", bottom: 0, left: 10 }}
-                //className="clear-button"
-                onClick={this.handleClear.bind(this)}
-              >
-                Clear
-              </Button> */}
-            </Col>
+            <Col sm="12" md="2" />
           </Row>
           <Row>
             <div className="container-text">
@@ -312,7 +326,7 @@ class Admin extends Component {
                 style={{
                   position: "relative",
                   width: "100%",
-                  height: "300px",
+                  height: "100px",
                   marginLeft: "60px",
                   marginRight: "40px",
                   marginTop: "40px"
@@ -340,6 +354,65 @@ class Admin extends Component {
                   )
                 }}
               />
+            </div>
+          </Row>
+          <Row>
+            <div className="container-fluid m-3">
+              <Row>
+                <Col md="8" sm="10">
+                  <div className="container">
+                    <TextField
+                      id="jsonUrl"
+                      label="Json Api"
+                      multiline
+                      rowsMax="4"
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "50px",
+                        marginLeft: "",
+                        marginRight: "40px"
+                      }}
+                      className={classes.textField}
+                      value={this.state.jsonUrl}
+                      onChange={this.handleChangeJsonUrl("jsonUrl")}
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  </div>
+                </Col>
+                <Col md="2" sm="5">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: "20px", marginBottom: "20px" }}
+                    onClick={this.showJsonData.bind(this)}
+                  >
+                    Show Json Data
+                  </Button>
+                </Col>
+                <Col md="2" sm="5">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    style={{ marginTop: "20px", marginBottom: "20px" }}
+                    onClick={this.clearJsonData.bind(this)}
+                  >
+                    Clear Json Data
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </Row>
+          <Row>
+            <div className="container-fluid m-3 p-3">
+              {this.state.data.length > 0 ? (
+                <ReactJson
+                  src={this.state.data}
+                  theme="solarized"
+                  collapsed="false"
+                />
+              ) : null}
             </div>
           </Row>
         </div>
